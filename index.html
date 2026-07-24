@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kashyap Patel · Applied AI/ML</title>
+<meta name="description" content="Kashyap Patel, an MCA candidate building agentic AI systems, Android tooling, and cloud-backed apps. Portfolio of real, verified projects.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kashyap Patel · Applied AI/ML">
+<meta property="og:description" content="MCA candidate building agentic AI systems, Android tooling, and cloud-backed apps. Portfolio of real, verified projects.">
+<meta property="og:image" content="assets/og-image.png">
+<meta property="og:url" content="https://kashyap-portfolio.pages.dev/">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kashyap Patel · Applied AI/ML">
+<meta name="twitter:description" content="MCA candidate building agentic AI systems, Android tooling, and cloud-backed apps. Portfolio of real, verified projects.">
+<meta name="twitter:image" content="assets/og-image.png">
+
+<meta name="theme-color" content="#0d100e">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true">
+  <span class="cursor-ring"></span>
+  <span class="cursor-ring"></span>
+  <span class="cursor-ring"></span>
+</div>
+
+<nav class="nav" id="nav">
+  <a href="#hero" class="nav-logo">KP</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about"><span>01.</span> About</a></li>
+    <li><a href="#skills"><span>02.</span> Skills</a></li>
+    <li><a href="#projects"><span>03.</span> Projects</a></li>
+    <li><a href="#education"><span>04.</span> Education</a></li>
+    <li><a href="#contact"><span>05.</span> Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="hero">
+  <p class="hero-eyebrow">Hi, my name is</p>
+  <h1 class="hero-name">Kashyap Patel.</h1>
+  <p class="hero-tagline">Applied AI/ML: building agentic systems for Odoo and beyond.</p>
+  <p class="hero-intro">
+    MCA candidate directing AI-assisted builds of real, working software,
+    from a Model Context Protocol server for Odoo to Android BLE accessibility tooling.
+  </p>
+  <div class="hero-links">
+    <a href="https://github.com/Kashyap-001" target="_blank" rel="noopener">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/kashyap-patel6334/" target="_blank" rel="noopener">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn
+    </a>
+    <a href="mailto:kashyap6334@gmail.com">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Email
+    </a>
+    <a href="assets/resume/Kashyap_Patel_Resume.pdf" download>
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Resume
+    </a>
+    <a href="#projects" class="btn">Check out my projects</a>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <p class="section-label reveal"><span>01.</span> About</p>
+  <div class="about-text reveal">
+    <p>
+      I'm an MCA candidate (Semester 3 of 4, expected 2027) and AWS Certified Cloud Practitioner,
+      self-taught across Python, Android, and Odoo/ERP development. I ship working software solo,
+      including a merged pull request on a third-party open-source project.
+    </p>
+    <p class="text-reveal" id="honestyText">
+      Several projects below were built by directing AI-assisted development workflows.
+      I scoped the architecture and design decisions myself, then used AI tooling to generate
+      the implementation, and reviewed and tested every part until it worked correctly. I have
+      working knowledge of each system's architecture, not deep mastery of every internal, and
+      I'm upfront about that distinction.
+    </p>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<div class="skills-strip reveal" id="skills">
+  <span class="skill-tag">Python</span>
+  <span class="skill-tag">MCP (Model Context Protocol)</span>
+  <span class="skill-tag">LLM Integration</span>
+  <span class="skill-tag">Android</span>
+  <span class="skill-tag">AWS</span>
+  <span class="skill-tag">Odoo</span>
+</div>
+
+<!-- CURRENTLY LEARNING -->
+<p class="currently-learning reveal">
+  <span class="pulse-dot" aria-hidden="true"></span>
+  Currently deepening classical ML fundamentals (scikit-learn, model training basics) alongside the applied agentic AI work below.
+</p>
+
+<!-- PROJECTS -->
+<section class="section" id="projects">
+  <p class="section-label reveal"><span>03.</span> Some Things I've Built</p>
+
+  <div class="projects-list">
+
+    <!-- Odoo MCP Gateway (lead project) -->
+    <article class="project-card lead">
+      <div class="project-media">
+        <!-- Real demo video, pulled directly from this project's own GitHub repo
+             (static/description/img/AI Chat 3.mp4) — shows the agent producing a
+             live generated chart in the chat, not a mockup. -->
+        <video
+          class="project-video"
+          id="mcpDemoVideo"
+          controls
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster="assets/projects/odoo-mcp-gateway/chat-result.png"
+          src="assets/projects/odoo-mcp-gateway/demo.mp4">
+        </video>
+      </div>
+      <div class="project-body">
+        <p class="project-label">Featured Project</p>
+        <h3 class="project-title">Odoo MCP Gateway</h3>
+        <p>
+          An Odoo 18 module implementing a real <strong>Model Context Protocol (MCP) server and client</strong>:
+          a JSON-RPC 2.0 endpoint (<code>tools/list</code>, <code>tools/call</code>) that exposes Odoo's own tools
+          to AI clients, plus the ability to connect outward to external MCP servers (WhatsApp, YouTube, etc.).
+          A 6-provider LLM integration layer (Anthropic, OpenAI, Gemini, Ollama, Grok/xAI, OpenCode) calls each
+          provider via plain HTTPS with zero extra dependencies, backed by rate-limited access control and a
+          session cost/token audit trail. A dedicated in-Odoo chat interface (built with OWL 3) renders interactive
+          charts inline via a separate, tightly-coupled chart-generation tool.
+        </p>
+        <p class="project-note">
+          The MCP protocol endpoint is real and functional. The daily-use interface I've actually built and
+          demonstrated is the in-Odoo chat widget, not a shown external client connection like Claude Desktop.
+        </p>
+        <div class="project-tags">
+          <span>Python</span><span>Odoo 18</span><span>MCP / JSON-RPC 2.0</span><span>OWL 3</span><span>ECharts</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/Kashyap-001/Odoo_MCP" target="_blank" rel="noopener">GitHub<svg class="icon icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+        </div>
+      </div>
+    </article>
+
+    <!-- AI Call Center -->
+    <article class="project-card reverse">
+      <div class="project-media">
+        <!-- Illustrative pipeline diagram, not a screenshot. -->
+        <div class="diagram-card">
+          <svg viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram: WhatsApp and Live Chat messages flow through a knowledge base and LLM to produce a quotation or ticket">
+            <rect class="diagram-node-fill diagram-node-stroke" x="90" y="15" width="120" height="60" rx="8" stroke-width="1.5"/>
+            <text class="diagram-text" x="150" y="40" text-anchor="middle" style="font-size:15px">WhatsApp /</text>
+            <text class="diagram-text" x="150" y="58" text-anchor="middle" style="font-size:15px">Live Chat</text>
+
+            <rect class="diagram-node-fill diagram-accent-stroke" x="45" y="115" width="105" height="70" rx="8" stroke-width="2"/>
+            <text class="diagram-text" x="97" y="145" text-anchor="middle" style="font-size:14px">Knowledge</text>
+            <text class="diagram-text" x="97" y="161" text-anchor="middle" style="font-size:14px">Base</text>
+
+            <rect class="diagram-node-fill diagram-accent-stroke" x="150" y="115" width="105" height="70" rx="8" stroke-width="2"/>
+            <text class="diagram-text" x="202" y="145" text-anchor="middle" style="font-size:14px">LLM</text>
+            <text class="diagram-text-dim" x="202" y="163" text-anchor="middle">async + cron</text>
+
+            <rect class="diagram-node-fill diagram-node-stroke" x="90" y="255" width="120" height="65" rx="8" stroke-width="1.5"/>
+            <text class="diagram-text" x="150" y="280" text-anchor="middle" style="font-size:15px">Quotation /</text>
+            <text class="diagram-text" x="150" y="298" text-anchor="middle" style="font-size:15px">Ticket</text>
+
+            <path class="diagram-line" d="M135 75 L100 115" marker-end="url(#arrow2)"/>
+            <path class="diagram-line" d="M165 75 L200 115" marker-end="url(#arrow2)"/>
+            <path class="diagram-line" d="M100 185 L135 255" marker-end="url(#arrow2)"/>
+            <path class="diagram-line" d="M200 185 L165 255" marker-end="url(#arrow2)"/>
+            <defs>
+              <marker id="arrow2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                <path d="M0,0 L6,3 L0,6" class="diagram-line"/>
+              </marker>
+            </defs>
+          </svg>
+        </div>
+      </div>
+      <div class="project-body">
+        <p class="project-label">Featured Project</p>
+        <h3 class="project-title">AI Call Center</h3>
+        <p>
+          An Odoo 19 module giving Odoo a real AI customer-service/sales agent for WhatsApp and Live Chat,
+          answering from a self-built knowledge base and automatically drafting Sales Quotations or Helpdesk
+          Tickets. Documents are chunked and embedded via a local ONNX model or an external embedding API,
+          stored directly in Odoo's own PostgreSQL database (no external vector-database service, since Odoo.sh
+          doesn't allow that kind of dependency), and matched with custom cosine-similarity search blended with
+          keyword scoring. An asynchronous queue-and-cron pipeline keeps LLM calls off the web request thread,
+          with confidence-based escalation and WhatsApp 24-hour-window handling. Backed by a 30+ file automated
+          test suite.
+        </p>
+        <div class="project-tags">
+          <span>Python</span><span>Odoo 19</span><span>PostgreSQL</span><span>Semantic Search</span><span>WhatsApp API</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/Kashyap-001/Ai_CallCenter" target="_blank" rel="noopener">GitHub<svg class="icon icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+        </div>
+      </div>
+    </article>
+
+    <!-- AI Second Brain -->
+    <article class="project-card">
+      <div class="project-media">
+        <!-- Illustrative loop diagram, not a screenshot. -->
+        <div class="diagram-card">
+          <svg viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram: a circular self-healing loop of error, fix, log, retry">
+            <rect class="diagram-node-fill diagram-accent-stroke" x="105" y="20" width="90" height="55" rx="8" stroke-width="2"/>
+            <text class="diagram-text" x="150" y="53" text-anchor="middle" style="font-size:15px">Error</text>
+
+            <rect class="diagram-node-fill diagram-node-stroke" x="210" y="140" width="85" height="55" rx="8" stroke-width="1.5"/>
+            <text class="diagram-text" x="252" y="173" text-anchor="middle" style="font-size:15px">Fix</text>
+
+            <rect class="diagram-node-fill diagram-node-stroke" x="105" y="265" width="90" height="55" rx="8" stroke-width="1.5"/>
+            <text class="diagram-text" x="150" y="298" text-anchor="middle" style="font-size:15px">Log</text>
+
+            <rect class="diagram-node-fill diagram-node-stroke" x="5" y="140" width="85" height="55" rx="8" stroke-width="1.5"/>
+            <text class="diagram-text" x="47" y="173" text-anchor="middle" style="font-size:15px">Retry</text>
+
+            <path class="diagram-line" d="M195 60 Q260 85 252 140" marker-end="url(#arrow3)"/>
+            <path class="diagram-line" d="M252 195 Q220 250 195 275" marker-end="url(#arrow3)"/>
+            <path class="diagram-line" d="M105 285 Q60 250 47 195" marker-end="url(#arrow3)"/>
+            <path class="diagram-line" d="M47 140 Q60 85 105 65" marker-end="url(#arrow3)"/>
+            <defs>
+              <marker id="arrow3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                <path d="M0,0 L6,3 L0,6" class="diagram-line"/>
+              </marker>
+            </defs>
+          </svg>
+        </div>
+      </div>
+      <div class="project-body">
+        <p class="project-label">Featured Project</p>
+        <h3 class="project-title">AI Second Brain</h3>
+        <p>
+          A portable "second brain" framework for AI coding agents (Claude Code, Cursor), built in Node.js:
+          a self-healing error-fix-log-retry loop, SAFe-style dev-loop agent roles wired to custom slash commands,
+          a reusable 14+ skill library, and persistent cross-session memory. Published as a sanitized, MIT-licensed
+          public template distributed via a zero-dependency <code>npx</code> setup script that runs identically on
+          Linux, macOS, and Windows, with GitHub Actions CI smoke-testing the setup script across all three
+          platforms on every push. I used this framework's dev loop to build the Odoo MCP Gateway and AI Call
+          Center projects above: real, working proof of the framework, not just a standalone template.
+        </p>
+        <div class="project-tags">
+          <span>Node.js</span><span>CLI</span><span>GitHub Actions CI</span><span>Agent Engineering</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/Kashyap-001/second-brain-template" target="_blank" rel="noopener">GitHub<svg class="icon icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Jarvis Voice Assistant -->
+    <article class="project-card reverse">
+      <div class="project-media">
+        <!-- Illustrative waveform diagram, not a screenshot. -->
+        <div class="diagram-card">
+          <svg viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram: a voice waveform feeding into wake-word detection, then either command routing or an LLM fallback">
+            <path class="diagram-accent-stroke" fill="none" stroke-width="2" d="M110 55 L110 35 M130 55 L130 15 M150 55 L150 70 M170 55 L170 25 M190 55 L190 75" stroke-linecap="round"/>
+
+            <rect class="diagram-node-fill diagram-node-stroke" x="90" y="100" width="120" height="55" rx="8" stroke-width="1.5"/>
+            <text class="diagram-text" x="150" y="125" text-anchor="middle" style="font-size:15px">Wake word +</text>
+            <text class="diagram-text" x="150" y="143" text-anchor="middle" style="font-size:15px">STT</text>
+
+            <rect class="diagram-node-fill diagram-node-stroke" x="15" y="220" width="120" height="60" rx="8" stroke-width="1.5"/>
+            <text class="diagram-text" x="75" y="256" text-anchor="middle" style="font-size:14px">Command router</text>
+
+            <rect class="diagram-node-fill diagram-accent-stroke" x="165" y="220" width="120" height="60" rx="8" stroke-width="2"/>
+            <text class="diagram-text" x="225" y="248" text-anchor="middle" style="font-size:14px">Groq / Llama</text>
+            <text class="diagram-text-dim" x="225" y="266" text-anchor="middle">3.3 70B</text>
+
+            <path class="diagram-line" d="M150 90 V100" marker-end="url(#arrow4)"/>
+            <path class="diagram-line" d="M125 155 L90 220" marker-end="url(#arrow4)"/>
+            <path class="diagram-line" d="M175 155 L215 220" marker-end="url(#arrow4)"/>
+            <defs>
+              <marker id="arrow4" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                <path d="M0,0 L6,3 L0,6" class="diagram-line"/>
+              </marker>
+            </defs>
+          </svg>
+        </div>
+      </div>
+      <div class="project-body">
+        <p class="project-label">Featured Project</p>
+        <h3 class="project-title">Jarvis Voice Assistant</h3>
+        <p>
+          A Python voice assistant with wake-word detection, speech-to-text, and text-to-speech (gTTS + pygame),
+          falling back to an LLM (Groq API, Llama 3.3 70B) for open-ended questions when a command doesn't match
+          a known action. Includes command routing for opening websites, playing music from a library module, and
+          reading live news headlines via the NewsAPI.
+        </p>
+        <div class="project-tags">
+          <span>Python</span><span>Speech Recognition</span><span>Groq / Llama 3.3</span><span>NewsAPI</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/Kashyap-001/Jarvis-voice-assistant" target="_blank" rel="noopener">GitHub<svg class="icon icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Torchit NavScan -->
+    <article class="project-card">
+      <div class="project-media">
+        <!-- Illustrative BLE-scan diagram, not a screenshot. -->
+        <div class="diagram-card">
+          <svg viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram: a phone scanning for a nearby BLE device via expanding signal arcs">
+            <rect class="diagram-node-fill diagram-node-stroke" x="120" y="15" width="60" height="90" rx="10" stroke-width="1.5"/>
+            <rect class="diagram-node-fill diagram-node-stroke" x="132" y="27" width="36" height="55" rx="2" stroke-width="1"/>
+
+            <path class="diagram-accent-stroke" fill="none" stroke-width="1.5" d="M115 130 a 20 20 0 0 0 70 0" opacity="0.9"/>
+            <path class="diagram-accent-stroke" fill="none" stroke-width="1.5" d="M95 150 a 55 40 0 0 0 110 0" opacity="0.6"/>
+            <path class="diagram-accent-stroke" fill="none" stroke-width="1.5" d="M75 170 a 75 55 0 0 0 150 0" opacity="0.35"/>
+
+            <rect class="diagram-node-fill diagram-accent-stroke" x="75" y="255" width="150" height="65" rx="8" stroke-width="2"/>
+            <text class="diagram-text" x="150" y="280" text-anchor="middle" style="font-size:14px">Saarthi Smart</text>
+            <text class="diagram-text" x="150" y="298" text-anchor="middle" style="font-size:14px">Cane (BLE)</text>
+
+            <path class="diagram-line" d="M150 215 V255" marker-end="url(#arrow5)"/>
+            <defs>
+              <marker id="arrow5" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                <path d="M0,0 L6,3 L0,6" class="diagram-line"/>
+              </marker>
+            </defs>
+          </svg>
+        </div>
+      </div>
+      <div class="project-body">
+        <p class="project-label">Featured Project</p>
+        <h3 class="project-title">Torchit NavScan (BLE Prototype)</h3>
+        <p>
+          An Android app in Java using Android BLE APIs (BluetoothLeScanner, ScanCallback) that scans for and
+          lists nearby Bluetooth Low Energy assistive hardware (e.g. Torchit's Saarthi Smart Cane) in real time,
+          as a hardware diagnostic companion tool. Handles Android 12+ BLE runtime permissions and adds full
+          TalkBack accessibility support on every interactive view, with a simulated-device fallback so the app
+          is testable without physical hardware nearby.
+        </p>
+        <div class="project-tags">
+          <span>Java</span><span>Android</span><span>BLE APIs</span><span>Accessibility (TalkBack)</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/Kashyap-001/Torchit-NavScan" target="_blank" rel="noopener">GitHub<svg class="icon icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <p class="other-work">
+    Also: merged a pull request fixing a snippet-generator bug in a third-party VS Code extension,
+    <a href="https://github.com/mstuttgart/odoo-snippets/pull/15" target="_blank" rel="noopener">mstuttgart/odoo-snippets #15 &rarr;</a>
+  </p>
+</section>
+
+<!-- EDUCATION -->
+<section class="section" id="education">
+  <p class="section-label reveal"><span>04.</span> Education</p>
+
+  <div class="education-item reveal">
+    <h3>Master of Computer Applications (MCA)</h3>
+    <p class="education-meta">Swarrnim Startup &amp; Innovation University · 2025 &ndash; 2027 (expected)</p>
+    <p>Currently pursuing, Semester 3 of 4 · Current SPI 9.01</p>
+  </div>
+
+  <div class="education-item reveal">
+    <h3>Bachelor of Computer Applications (BCA)</h3>
+    <p class="education-meta">S K Patel Institute of Management &amp; Computer Studies · Aug 2021 &ndash; Mar 2024</p>
+    <p>SPI 8.67</p>
+  </div>
+
+  <div class="education-item reveal">
+    <h3>AWS Certified Cloud Practitioner</h3>
+    <p class="education-meta">Amazon Web Services · Issued Jun 2025, expires Jun 2028</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact reveal" id="contact">
+  <p class="contact-label">05. What's Next?</p>
+  <h2 class="contact-title">Get In Touch</h2>
+  <p class="contact-note">
+    I'm looking for entry-level Applied AI/ML, Android, or backend roles. My inbox is always open,
+    whether you have a question or just want to say hi. I'll try my best to get back to you.
+  </p>
+  <div class="contact-actions">
+    <a href="mailto:kashyap6334@gmail.com" class="btn">Say Hello</a>
+    <a href="assets/resume/Kashyap_Patel_Resume.pdf" class="btn" download>Download Resume</a>
+  </div>
+</section>
+
+<footer>
+  <p>
+    <a href="https://github.com/Kashyap-001" target="_blank" rel="noopener">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub
+    </a> ·
+    <a href="https://www.linkedin.com/in/kashyap-patel6334/" target="_blank" rel="noopener">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn
+    </a> ·
+    <a href="mailto:kashyap6334@gmail.com">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Email
+    </a>
+  </p>
+  <p>Built with plain HTML/CSS/JS, no framework by design. Design inspired by Brittany Chiang.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

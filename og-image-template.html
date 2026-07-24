@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>OG Image</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1200px;
+    height: 630px;
+    background: #0d100e;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 100px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glow {
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    width: 900px;
+    height: 900px;
+    background: radial-gradient(circle, rgba(34, 197, 94, 0.35) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    opacity: 0.4;
+  }
+
+  .eyebrow {
+    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", Consolas, "Courier New", monospace;
+    color: #22c55e;
+    font-size: 28px;
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .name {
+    color: #eef1ee;
+    font-size: 88px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .tagline {
+    color: #9aa39c;
+    font-size: 34px;
+    max-width: 900px;
+    position: relative;
+  }
+
+  .tagline strong {
+    color: #22c55e;
+  }
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+  <p class="eyebrow">Hi, my name is</p>
+  <h1 class="name">Kashyap Patel</h1>
+  <p class="tagline"><strong>Applied AI/ML:</strong> building agentic systems for Odoo and beyond.</p>
+</body>
+</html>

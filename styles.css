@@ -1,0 +1,803 @@
+/* ==========================================================================
+   Kashyap Patel — Portfolio
+   Plain CSS, no build step. Single accent color drives every highlight.
+   ========================================================================== */
+
+:root {
+  --bg-primary:   #0d100e;
+  --bg-secondary: #171b18;
+  --text-heading: #eef1ee;
+  --text-body:    #9aa39c;
+  --accent:       #22c55e;
+  --accent-dim:   rgba(34, 197, 94, 0.12);
+  --accent-glow:  rgba(34, 197, 94, 0.35);
+  --border:       #2a302c;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono",
+               Consolas, "Courier New", monospace;
+
+  --max-width: min(1100px, 92vw);
+  --nav-height: 70px;
+  --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* === CURSOR-FOLLOW RIPPLE (full site) ===
+   A small fixed-position container tracks the mouse everywhere on the page
+   (updated via transform in script.js — cheap, no layout reflow). Inside it,
+   three rings loop the same expand-and-fade animation on a stagger, so new
+   waves keep radiating outward in every direction from wherever the cursor
+   currently is. */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 5;
+  mix-blend-mode: screen;
+}
+
+.cursor-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 320px;
+  margin: -160px 0 0 -160px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  opacity: 0;
+  animation: cursor-ripple 3s ease-out infinite;
+}
+
+.cursor-ring:nth-child(2) { animation-delay: 1s; }
+.cursor-ring:nth-child(3) { animation-delay: 2s; }
+
+@keyframes cursor-ripple {
+  0%   { transform: scale(0.3); opacity: 0.55; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+
+@media (max-width: 700px) {
+  /* Skip on touch/small screens — there's no hovering mouse to follow. */
+  .cursor-glow {
+    display: none;
+  }
+}
+
+/* === SCROLL PROGRESS BAR === */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: var(--accent);
+  z-index: 200;
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+/* === GENERIC REVEAL-ON-SCROLL ===
+   Scale + blur-to-sharp fade: elements arrive slightly scaled down and
+   out of focus, then settle into full size and sharpness. Reads as a much
+   more "premium" reveal than a plain slide-up. */
+.reveal {
+  opacity: 0;
+  transform: scale(0.94) translateY(24px);
+  filter: blur(6px);
+  transition: opacity 0.9s var(--ease-reveal),
+              transform 0.9s var(--ease-reveal),
+              filter 0.9s var(--ease-reveal);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  filter: blur(0);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-height);
+}
+
+body {
+  margin: 0;
+  background: var(--bg-primary);
+  color: var(--text-body);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  vertical-align: -3px;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+.icon-external {
+  width: 14px;
+  height: 14px;
+  vertical-align: -1px;
+  margin-left: 4px;
+  margin-right: 0;
+}
+
+a:hover,
+a:focus-visible {
+  text-decoration: underline;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+h1, h2, h3 {
+  color: var(--text-heading);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 16px;
+}
+
+.section {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 100px 24px;
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+}
+
+.section-label::after {
+  content: "";
+  display: block;
+  height: 1px;
+  width: 0;
+  background: var(--border);
+  transition: width 0.9s var(--ease-reveal) 0.15s;
+}
+
+.section-label.is-visible::after {
+  width: 100%;
+}
+
+.section-title {
+  font-size: clamp(24px, 4vw, 32px);
+}
+
+/* === NAV === */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  background: rgba(13, 16, 14, 0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid transparent;
+  z-index: 100;
+  transition: border-color 0.2s ease;
+}
+
+.nav.scrolled {
+  border-bottom-color: var(--border);
+}
+
+.nav-logo {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 20px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  color: var(--text-heading);
+  font-size: 14px;
+  font-family: var(--font-mono);
+}
+
+.nav-links a span {
+  color: var(--accent);
+}
+
+.nav-links a {
+  position: relative;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.25s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-links a.active {
+  color: var(--accent);
+}
+
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.nav-resume {
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  padding: 8px 16px !important;
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* === HERO === */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  opacity: 0.25;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 16px;
+  margin: 0 0 16px;
+}
+
+.hero-name {
+  font-size: clamp(36px, 8vw, 64px);
+  margin: 0 0 8px;
+}
+
+.hero-tagline {
+  font-size: clamp(22px, 5vw, 42px);
+  color: var(--text-body);
+  margin: 0 0 24px;
+}
+
+.hero-intro {
+  max-width: 540px;
+  margin: 0 0 40px;
+}
+
+.hero-links {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.hero-links a {
+  font-family: var(--font-mono);
+  font-size: 15px;
+}
+
+.btn {
+  display: inline-block;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 4px;
+  padding: 12px 24px;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  background: var(--accent-dim);
+  box-shadow: 0 0 20px var(--accent-glow);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+/* === ABOUT === */
+.about-text p {
+  margin: 0 0 16px;
+}
+
+/* Word-by-word scroll-linked reveal, applied via JS to #honestyText.
+   Words start dim and light up progressively as you scroll through them. */
+.text-reveal .word {
+  opacity: 0.25;
+  transition: opacity 0.2s linear;
+}
+
+.text-reveal .word.active {
+  opacity: 1;
+  color: var(--text-heading);
+}
+
+/* === SKILLS STRIP === */
+.skills-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 50px 24px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.skill-tag {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 6px 14px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.skill-tag:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 14px var(--accent-glow);
+}
+
+/* === CURRENTLY LEARNING === */
+.currently-learning {
+  max-width: var(--max-width);
+  margin: 0 auto 60px;
+  padding: 0 24px;
+  font-size: 15px;
+  color: var(--text-body);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pulse-dot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 var(--accent-glow);
+  animation: pulse-dot 2s ease-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%   { box-shadow: 0 0 0 0 var(--accent-glow); }
+  70%  { box-shadow: 0 0 0 8px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+/* === PROJECTS === */
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+/* Side-by-side layout, alternating left/right, even 50/50 split on every
+   card (including the first project — no special full-width treatment)
+   so every diagram renders at the same size. Diagram sizing itself is
+   handled inside the SVGs, not by changing this layout. */
+.project-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  opacity: 0;
+  transform: scale(0.95) translateY(48px);
+  filter: blur(8px);
+  transition: opacity 0.9s var(--ease-reveal),
+              transform 0.9s var(--ease-reveal),
+              filter 0.9s var(--ease-reveal);
+}
+
+.project-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.project-card.reverse .project-media {
+  order: 2;
+}
+
+.project-card.reverse .project-body {
+  order: 1;
+}
+
+.project-card.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  filter: blur(0);
+}
+
+/* Staggered cascade: each direct child of project-body fades/rises in with
+   an increasing delay once the parent card is revealed, so content arrives
+   as a sequence rather than one flat block. */
+.project-body > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.project-card.visible .project-body > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-card.visible .project-body > *:nth-child(1) { transition-delay: 0.05s; }
+.project-card.visible .project-body > *:nth-child(2) { transition-delay: 0.15s; }
+.project-card.visible .project-body > *:nth-child(3) { transition-delay: 0.25s; }
+.project-card.visible .project-body > *:nth-child(4) { transition-delay: 0.35s; }
+.project-card.visible .project-body > *:nth-child(5) { transition-delay: 0.45s; }
+.project-card.visible .project-body > *:nth-child(6) { transition-delay: 0.55s; }
+
+.terminal-card {
+  transition: box-shadow 0.3s ease;
+}
+
+.project-card:hover .terminal-card {
+  box-shadow: 0 0 28px var(--accent-glow);
+  border-color: var(--accent);
+}
+
+.project-media img,
+.project-media video {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+.terminal-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.terminal-card-header {
+  display: flex;
+  gap: 6px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.terminal-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+}
+
+.terminal-card pre {
+  margin: 0;
+  padding: 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent);
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+.terminal-card pre .comment {
+  color: var(--text-body);
+}
+
+/* === PROJECT DIAGRAMS ===
+   Inline SVG architecture/flow illustrations, not screenshots. Colors are
+   driven by the theme variables so they stay in sync with whatever accent
+   is picked. */
+.diagram-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 24px;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.project-card:hover .diagram-card {
+  box-shadow: 0 0 28px var(--accent-glow);
+  border-color: var(--accent);
+}
+
+.project-video {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  display: block;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.project-card:hover .project-video {
+  box-shadow: 0 0 28px var(--accent-glow);
+  border-color: var(--accent);
+}
+
+.diagram-card svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Assemble-in effect: each direct child of the diagram (box, label, line)
+   scales/fades in based on scroll position, driven by JS (see script.js
+   updateDiagramAssembly) rather than a fixed CSS transition-delay ladder —
+   so the diagram assembles in step with your actual scroll speed: starting
+   as the card enters the bottom of the screen, finished just before it
+   reaches the top, instead of playing once at a fixed pace regardless of
+   how fast you scroll past it. */
+.diagram-card svg > * {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.15s linear, transform 0.15s linear;
+}
+
+.diagram-card svg > *.piece-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.diagram-node-fill {
+  fill: var(--bg-primary);
+}
+
+.diagram-node-stroke {
+  stroke: var(--border);
+}
+
+.diagram-accent-stroke {
+  stroke: var(--accent);
+}
+
+.diagram-accent-fill {
+  fill: var(--accent);
+}
+
+.diagram-text {
+  font-family: var(--font-mono);
+  fill: var(--text-heading);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.diagram-text-dim {
+  font-family: var(--font-mono);
+  fill: var(--text-body);
+  font-size: 13px;
+}
+
+.diagram-line {
+  stroke: var(--border);
+  stroke-width: 2;
+  fill: none;
+}
+
+.project-label {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.project-title {
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+.project-body p {
+  margin: 0 0 16px;
+}
+
+.project-note {
+  font-size: 15px;
+  font-style: italic;
+  color: var(--text-body);
+  border-left: 2px solid var(--border);
+  padding-left: 12px;
+  margin: 0 0 16px;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.project-tags span {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-body);
+}
+
+.project-tags span:not(:last-child)::after {
+  content: "·";
+  margin-left: 8px;
+  color: var(--border);
+}
+
+.project-links a {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  margin-right: 16px;
+}
+
+.other-work {
+  margin-top: 40px;
+  font-size: 15px;
+  font-family: var(--font-mono);
+}
+
+/* === EDUCATION === */
+.education-item {
+  margin-bottom: 24px;
+}
+
+.education-item h3 {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.education-meta {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--accent);
+}
+
+/* === CONTACT / FOOTER === */
+.contact {
+  text-align: center;
+}
+
+.contact-label {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.contact-title {
+  font-size: clamp(28px, 6vw, 44px);
+}
+
+.contact-note {
+  max-width: 480px;
+  margin: 0 auto 32px;
+}
+
+.contact-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+footer {
+  text-align: center;
+  padding: 40px 24px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-body);
+}
+
+footer a {
+  color: var(--text-body);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 700px) {
+  .nav-links {
+    position: fixed;
+    top: var(--nav-height);
+    right: 0;
+    height: calc(100vh - var(--nav-height));
+    width: 220px;
+    background: var(--bg-secondary);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 40px 24px;
+    transform: translateX(100%);
+    transition: transform 0.25s ease;
+    border-left: 1px solid var(--border);
+  }
+
+  .nav-links.open {
+    transform: translateX(0);
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
+  .project-card {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card.reverse .project-media,
+  .project-card.reverse .project-body {
+    order: unset;
+  }
+
+  .project-media {
+    margin-bottom: 20px;
+  }
+
+  .section {
+    padding: 70px 20px;
+  }
+}
