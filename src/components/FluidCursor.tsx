@@ -1083,7 +1083,7 @@ export function FluidCursor({ className }: FluidCursorProps) {
   if (prefersReducedMotion) return null
 
   return (
-    <div className={cn('pointer-events-none fixed top-0 left-0 z-200 size-full', className)}>
+    <div className={cn('pointer-events-none fixed top-0 left-0 -z-10 size-full', className)}>
       <canvas ref={canvasRef} className="block h-screen w-screen" />
     </div>
   )

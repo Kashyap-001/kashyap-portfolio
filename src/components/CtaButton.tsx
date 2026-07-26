@@ -11,7 +11,7 @@ export function CtaButton({ children, className = '', variant = 'outline', ...pr
   const button = (
     <RippleButton asChild>
       <a
-        className={`inline-block rounded border border-primary px-6 py-3 font-mono text-[15px] text-primary transition-[background,box-shadow] duration-250 ease-out hover:bg-brand-dim hover:shadow-[0_0_20px_var(--brand-glow)] hover:no-underline ${className}`}
+        className={`relative z-10 inline-block rounded border border-primary px-6 py-3 font-mono text-[15px] text-primary transition-[background,box-shadow] duration-250 ease-out hover:bg-brand-dim hover:shadow-[0_0_20px_var(--brand-glow)] hover:no-underline ${className}`}
         {...props}
       >
         {children}
@@ -24,7 +24,7 @@ export function CtaButton({ children, className = '', variant = 'outline', ...pr
 
   return (
     <motion.div
-      className="inline-block overflow-hidden rounded-md p-[1.5px] transition-shadow duration-250 ease-out hover:shadow-[0_0_20px_var(--brand-glow)]"
+      className="relative z-10 inline-block overflow-hidden rounded-md p-[1.5px] transition-shadow duration-250 ease-out hover:shadow-[0_0_20px_var(--brand-glow)]"
       style={{
         backgroundImage: 'linear-gradient(90deg, #16a34a, #4ade80, #22c55e, #16a34a)',
         backgroundSize: '200% 100%',

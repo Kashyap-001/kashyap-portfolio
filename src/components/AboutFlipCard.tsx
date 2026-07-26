@@ -15,7 +15,7 @@ export function AboutFlipCard() {
     : { onClick: () => setFlipped((f) => !f) }
 
   return (
-    <div className="mx-auto w-full max-w-[280px] md:mx-0" style={{ perspective: 1000 }}>
+    <div className="relative z-10 mx-auto w-full max-w-[280px] md:mx-0" style={{ perspective: 1000 }}>
       <motion.div
         className="relative h-72 w-full cursor-pointer"
         style={{ transformStyle: 'preserve-3d' }}
