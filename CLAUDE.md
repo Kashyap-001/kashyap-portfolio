@@ -103,6 +103,22 @@ exist` (this happened once already).
 
 `wrangler.jsonc`'s `assets.directory` is `./dist` (the Vite build output), not the repo root.
 
+### Scroll-linked reveal animations
+
+`About.tsx`'s word-by-word highlight (`HonestyParagraph`) and similar scroll-tied effects use
+Framer Motion's `useScroll({ target, offset })`. Two lessons learned the hard way here, worth
+applying to any future scroll-linked effect:
+
+- **Track the same edge for both bounds of the offset** (e.g. `['start 0.8', 'start 0.2']`, not
+  `['start 0.8', 'end 0.3']`). Switching from the target's top to its bottom partway through
+  makes the effective completion point depend on the target's rendered height — a tall/wrapped
+  paragraph finished highlighting only after its top had already scrolled above the viewport.
+- **Don't finish the effect near a viewport edge.** The first fix moved completion to `start
+  0.2` (still visible, bug technically fixed) but it looked rushed — text finished lighting up
+  right as it left the comfortable reading zone. Finishing around `start 0.5` (screen center)
+  reads much better: the content is fully revealed while still centered and easy to read, not
+  right before it scrolls away.
+
 ### Testing animations manually
 
 No automated visual test exists for animation timing/playback. `npm run build` + a manual
