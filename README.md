@@ -1,80 +1,79 @@
 # Kashyap Patel — Portfolio
 
-Personal portfolio site. Plain HTML/CSS/JS, no build step, no framework.
+My personal portfolio. React + Vite + TypeScript + Tailwind v4 + Framer Motion + Lenis.
 
-Live at: https://kashyap.kashyap6334.workers.dev
+Started as a plain HTML/CSS/JS site (no build step, on purpose) — moved it to React so I could
+actually use some of the animate-ui / inspira-ui style components without fighting a static
+site. Old version is still sitting in `legacy/` if I ever want to look back at it.
 
-## Run locally
+Live: https://kashyap.kashyap6334.workers.dev
 
-Just open `index.html` in a browser, or serve it so relative paths behave exactly like production:
+## Local dev
 
 ```bash
-python -m http.server 8000
+npm install
+npm run dev
 ```
 
-Then visit `http://localhost:8000`.
+`http://localhost:5173`. If I want to test on my phone, `npm run dev -- --host` and open the
+LAN address it prints on the phone (same WiFi).
 
-## Project structure
+## Structure
 
 ```
-index.html               # all page content
-styles.css                # all styling (colors, layout, responsive rules)
-script.js                 # smooth scroll, scroll progress bar, scroll-scrubbed diagram
-                           # assembly, cursor-follow ripple, word reveal, mobile nav toggle
-favicon.svg                # "KP" monogram
-og-image-template.html     # source template for assets/og-image.png (see below)
-wrangler.jsonc              # Cloudflare Workers deploy config (name, assets directory)
-.assetsignore                # files Cloudflare must NOT serve publicly (.git, .wrangler)
-assets/
-  og-image.png              # social share preview image (LinkedIn/Twitter/WhatsApp)
-  projects/                 # per-project demo videos/screenshots or illustrative diagrams
-  resume/                   # downloadable resume PDF
+src/
+  App.tsx           # everything gets mounted here, no router, it's one page
+  main.tsx          # Lenis + Framer Motion providers wrap App here
+  index.css          # theme tokens (@theme block), base styles
+  components/         # animate-ui/ = shadcn-installed stuff, some of it hand-edited, be careful
+  data/               # projects, skills, links — content lives here not in JSX
+  hooks/
+public/assets/       # resume, og-image, project media
+legacy/                # old static version, not built/deployed anymore
 ```
 
-## Regenerating the OG share image
+## animate-ui bits
 
-`assets/og-image.png` was generated once with a throwaway Playwright script (screenshotting
-`og-image-template.html` at 1200x630). If you change the template and want a fresh image,
-write a small one-off Node script using Playwright (`chromium.launch()` →
-`page.setViewportSize({width:1200,height:630})` → `page.goto(fileURL)` →
-`page.screenshot({path: 'assets/og-image.png'})`) and run it once — no need to keep the
-script around afterward.
+Some components under `src/components/animate-ui/` came from the shadcn CLI pointed at
+animate-ui's registry (`npx shadcn add https://animate-ui.com/r/components-<x>-<y>.json`).
+Not an npm package, it's copy-pasted into the repo.
 
-## Adding real project media
+Gotchas:
+- `tsconfig.app.json` has `noUnusedLocals`/`noUnusedParameters` off because the vendored files
+  always have an unused React import and I'm not fixing that every time.
+- `animate-ui/components/animate/tabs.tsx` — I edited the colors by hand (the sliding highlight
+  + active tab text were generic gray, changed to the green accent). If I ever re-run the
+  install for this one it'll stomp those edits, redo them.
+- `FluidCursor.tsx` is NOT from animate-ui, it's a straight port of inspira-ui's Fluid Cursor
+  (Vue → React, from `unovue/inspira-ui`). Real WebGL fluid sim, ~1350 lines, mostly copy-pasted
+  as-is — only changed the color (green instead of random rainbow) and dropped the resolution a
+  bit on mobile.
 
-Some project folders under `assets/projects/` don't have real demo videos/screenshots yet
-(they use an illustrative SVG diagram instead). Do NOT add a fabricated screenshot — either:
-- copy the real demo asset from that project's own GitHub repo (as was done for
-  `odoo-mcp-gateway/demo.mp4` + `chat-result.png`, pulled directly from the Odoo_MCP repo), or
-- leave the illustrative diagram in `index.html` as-is until a real asset exists.
+## Theme
 
-## Deploy (Cloudflare Workers — static assets)
+One accent color, `--primary` (`#22c55e`), everything else in `src/index.css`'s `@theme` block.
+Don't use Tailwind's own `accent`/`bg-accent` classes for the brand color — that's a different
+shadcn token that ended up mapped to gray, easy to mix up.
 
-This project is connected to Cloudflare's **Workers** product (not the older, separate "Pages"
-product) using its static-assets deployment mode. The dashboard auto-detected this as a
-"Static" framework and deploys via `npx wrangler deploy`, reading `wrangler.jsonc` for config.
+Breakpoint is `700px` not the Tailwind default 768, set via `--breakpoint-md`. Just use `md:` as
+normal, it's already overridden.
 
-**Critical: `.assetsignore` must always list `.git` and `.wrangler`.** Without it, Cloudflare's
-asset uploader serves the *entire* repo directory publicly — including your git internals
-(`.git/index`, `.git/objects/...`, commit history) — since it doesn't respect `.gitignore` for
-this purpose. This bit us once already; don't remove `.assetsignore`.
+`<html class="dark">` in index.html needs to stay — without it none of the shadcn/animate-ui
+`dark:` classes apply (found this out the hard way, whole Hole Background thing looked wrong
+because of it before I ripped that component out).
 
-### First-time setup (already done for this repo)
+## Deploy
 
-1. Push this repo to GitHub.
-2. Cloudflare dashboard → Workers & Pages → Create → Connect to Git → select this repo.
-3. It should auto-detect the static site and generate `wrangler.jsonc` on first deploy;
-   this repo now commits that file explicitly instead of relying on auto-detection every time.
+Cloudflare Workers, static assets mode. Two ways this can deploy and I need to remember which
+one's actually on:
 
-### Redeploying after changes
+1. GitHub Actions (`.github/workflows/deploy.yml`) — builds then `wrangler deploy`. Needs
+   `CLOUDFLARE_API_TOKEN` set as a repo secret or it just won't run.
+2. Cloudflare's dashboard has its own git integration from back when this was a static site
+   with no build step. If that's still wired up and its build command isn't `npm run build` /
+   output `dist`, it'll deploy the wrong thing. Check the dashboard before assuming a push just
+   works — either fix its build settings to match or turn it off and just use the Action.
 
-Push to `main`. **Automatic deployment-on-push has not been confirmed working for this
-project** — the dashboard's Deployments tab showed nothing queued after a push during initial
-setup. Until that's resolved, trigger a deployment manually from the Cloudflare dashboard
-(Overview or Deployments tab) after each push, and check GitHub repo → Settings → Webhooks
-to confirm a Cloudflare webhook is registered and firing on push events.
+`wrangler.jsonc` points `assets.directory` at `./dist` now, not the repo root like before.
 
-### Live URL
-
-https://kashyap.kashyap6334.workers.dev — if this project ever gets renamed or moved to a
-custom domain, update the `og:url`/`twitter:image` meta tags in `index.html` to match.
+If the domain ever changes, update `og:url` in `index.html` and the live link above.
