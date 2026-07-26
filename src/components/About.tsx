@@ -17,8 +17,10 @@ function HonestyParagraph() {
   // Track the paragraph's top edge for both bounds (not top→bottom) so
   // completion is independent of the paragraph's rendered height — using
   // 'end' here made tall/wrapped paragraphs finish highlighting only after
-  // their top had already scrolled above the viewport.
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.8', 'start 0.2'] })
+  // their top had already scrolled above the viewport. Finishing at screen
+  // center (not near the top edge) keeps the text fully lit while it's
+  // still in the comfortable reading zone, not right as it's leaving it.
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.8', 'start 0.5'] })
   const activeCountValue = useTransform(scrollYProgress, (p) => Math.floor(p * words.length))
   const [activeCount, setActiveCount] = useState(0)
   useMotionValueEvent(activeCountValue, 'change', (v) => setActiveCount(v))
