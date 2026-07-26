@@ -15,7 +15,7 @@ export function Footer() {
           <EmailIcon className="mr-1.5 size-[18px]" />Email
         </a>
       </p>
-      <p className="mt-2">Built with React, Tailwind CSS, and Framer Motion. Design inspired by Brittany Chiang.</p>
+      <p className="mt-2">Built with React, Tailwind CSS, and Framer Motion.</p>
     </footer>
   )
 }
