@@ -65,10 +65,10 @@ theme only — there's no light mode toggle, and the `dark` class is applied per
 
 ## Deployment
 
-The site deploys to Cloudflare Workers (static assets mode) via a GitHub Actions workflow that
-builds the project and pushes it with Wrangler. That requires a Cloudflare API token stored as
-a repo secret. Worth knowing: this project was originally connected directly to Cloudflare's own
-dashboard git integration too, back when it was a static site with no build step — if that's
-still active alongside the GitHub Action, it needs to be pointed at the right build command
-(`npm run build`, output directory `dist`) or turned off, otherwise it'll try to deploy the
-wrong thing.
+The site deploys to Cloudflare Workers (static assets mode) through Cloudflare's own dashboard
+git integration — every push to `main` triggers a build and deploy there directly, no GitHub
+Actions involved. Its configured deploy command is just `npx wrangler deploy`, which doesn't
+build the app on its own, so `package.json` has a `postinstall` script that runs `npm run build`
+right after dependencies install — that's what actually produces `dist/` before Wrangler looks
+for it. Don't remove that script, the dashboard deploy will break without it (found this out
+the hard way — see the git history for `assets.directory does not exist` if curious).

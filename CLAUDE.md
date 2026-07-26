@@ -92,14 +92,14 @@ in the original and carried over unchanged. Gated off entirely under `prefers-re
 
 ### Deployment
 
-Two deploy paths can exist for this repo simultaneously — check which is actually wired up
-before assuming a push will deploy correctly:
-
-1. **GitHub Actions** (`.github/workflows/deploy.yml`) — `npm ci && npm run build`, then
-   `wrangler deploy`. Needs a `CLOUDFLARE_API_TOKEN` repo secret to function.
-2. **Cloudflare's own dashboard Git integration**, connected when this was still a build-less
-   static site. If its build command isn't set to `npm run build` with output `dist`, it will
-   deploy stale/wrong output independently of GitHub Actions.
+Deploys through Cloudflare's own dashboard Git integration only — every push to `main` triggers
+it directly, no GitHub Actions (a workflow was added at one point, then removed once this path
+was confirmed working, to avoid two pipelines deploying the same push). The dashboard's deploy
+command is just `npx wrangler deploy`, which does not build the app — `package.json` has a
+`postinstall` script (`npm run build`) that runs automatically right after `npm clean-install`,
+which is what actually produces `dist/` before Wrangler looks for it. **Don't remove
+`postinstall`** — without it every dashboard deploy fails with `assets.directory does not
+exist` (this happened once already).
 
 `wrangler.jsonc`'s `assets.directory` is `./dist` (the Vite build output), not the repo root.
 
