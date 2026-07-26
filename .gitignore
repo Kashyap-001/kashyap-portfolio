@@ -1,3 +1,17 @@
 .DS_Store
 Thumbs.db
 .wrangler/
+
+# Build tooling
+node_modules
+dist
+dist-ssr
+*.local
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

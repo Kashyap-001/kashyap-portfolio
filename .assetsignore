@@ -1,7 +1,2 @@
 .git
 .wrangler
-.gitignore
-.assetsignore
-README.md
-og-image-template.html
-wrangler.jsonc
