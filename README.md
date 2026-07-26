@@ -1,79 +1,74 @@
 # Kashyap Patel — Portfolio
 
-My personal portfolio. React + Vite + TypeScript + Tailwind v4 + Framer Motion + Lenis.
+This is the source for my personal portfolio site: https://kashyap.kashyap6334.workers.dev
 
-Started as a plain HTML/CSS/JS site (no build step, on purpose) — moved it to React so I could
-actually use some of the animate-ui / inspira-ui style components without fighting a static
-site. Old version is still sitting in `legacy/` if I ever want to look back at it.
+Built with React, Vite, TypeScript, Tailwind CSS v4, Framer Motion, and Lenis for smooth
+scrolling. It started out as a plain HTML/CSS/JS site with zero dependencies — I rewrote it in
+React so I could pull in some animated UI components (from animate-ui, plus a hand-ported WebGL
+cursor effect from inspira-ui) without fighting a static site to do it. The old version is still
+kept around in `legacy/` if you're curious what it looked like before.
 
-Live: https://kashyap.kashyap6334.workers.dev
-
-## Local dev
+## Running it locally
 
 ```bash
 npm install
 npm run dev
 ```
 
-`http://localhost:5173`. If I want to test on my phone, `npm run dev -- --host` and open the
-LAN address it prints on the phone (same WiFi).
+Then open `http://localhost:5173`. If you want to check it on a phone or another device on the
+same network, run `npm run dev -- --host` instead and open the LAN address it prints.
 
-## Structure
+To build for production:
+
+```bash
+npm run build
+```
+
+Output goes to `dist/`. `npm run preview` will serve that build locally so you can sanity-check
+it before deploying.
+
+## How it's organized
 
 ```
 src/
-  App.tsx           # everything gets mounted here, no router, it's one page
-  main.tsx          # Lenis + Framer Motion providers wrap App here
-  index.css          # theme tokens (@theme block), base styles
-  components/         # animate-ui/ = shadcn-installed stuff, some of it hand-edited, be careful
-  data/               # projects, skills, links — content lives here not in JSX
+  App.tsx           # the whole page — no router, it's a single page with anchor navigation
+  main.tsx          # sets up Lenis (smooth scroll) and Framer Motion's reduced-motion handling
+  index.css          # theme colors, fonts, and breakpoints, all defined in one @theme block
+  components/         # one file per component; components/animate-ui/ holds a few components
+                       # pulled in from animate-ui's component registry
+  data/               # the actual content — project write-ups, skills list, social links —
+                       # lives here as plain data rather than being hardcoded in JSX
   hooks/
-public/assets/       # resume, og-image, project media
-legacy/                # old static version, not built/deployed anymore
+public/assets/       # resume PDF, social preview image, project screenshots/video
+legacy/                # the original static HTML/CSS/JS version, kept for reference only
 ```
 
-## animate-ui bits
+## A few notes on the animated bits
 
-Some components under `src/components/animate-ui/` came from the shadcn CLI pointed at
-animate-ui's registry (`npx shadcn add https://animate-ui.com/r/components-<x>-<y>.json`).
-Not an npm package, it's copy-pasted into the repo.
+Some components under `src/components/animate-ui/` were installed from animate-ui's component
+registry via the shadcn CLI — it's not an npm package, the actual component source gets copied
+straight into the repo, which means it's fair game to edit by hand. I did that in a couple of
+places (mainly recoloring things to match my green accent instead of the library's default
+gray), so if you ever reinstall one of those components, check whether it needs the same
+tweaks reapplied.
 
-Gotchas:
-- `tsconfig.app.json` has `noUnusedLocals`/`noUnusedParameters` off because the vendored files
-  always have an unused React import and I'm not fixing that every time.
-- `animate-ui/components/animate/tabs.tsx` — I edited the colors by hand (the sliding highlight
-  + active tab text were generic gray, changed to the green accent). If I ever re-run the
-  install for this one it'll stomp those edits, redo them.
-- `FluidCursor.tsx` is NOT from animate-ui, it's a straight port of inspira-ui's Fluid Cursor
-  (Vue → React, from `unovue/inspira-ui`). Real WebGL fluid sim, ~1350 lines, mostly copy-pasted
-  as-is — only changed the color (green instead of random rainbow) and dropped the resolution a
-  bit on mobile.
+The cursor effect (`FluidCursor.tsx`) isn't from animate-ui at all — it's a WebGL fluid
+simulation ported over from inspira-ui (a similar component library, but for Vue), recolored to
+match the site and works on touchscreens the same way it does with a mouse.
 
-## Theme
+## Design system
 
-One accent color, `--primary` (`#22c55e`), everything else in `src/index.css`'s `@theme` block.
-Don't use Tailwind's own `accent`/`bg-accent` classes for the brand color — that's a different
-shadcn token that ended up mapped to gray, easy to mix up.
+Everything runs off a single accent color (`#22c55e`, a green) defined once in `src/index.css`.
+The layout has one responsive breakpoint at 700px rather than the usual Tailwind defaults. Dark
+theme only — there's no light mode toggle, and the `dark` class is applied permanently in
+`index.html` since a couple of the third-party components need it present to style correctly.
 
-Breakpoint is `700px` not the Tailwind default 768, set via `--breakpoint-md`. Just use `md:` as
-normal, it's already overridden.
+## Deployment
 
-`<html class="dark">` in index.html needs to stay — without it none of the shadcn/animate-ui
-`dark:` classes apply (found this out the hard way, whole Hole Background thing looked wrong
-because of it before I ripped that component out).
-
-## Deploy
-
-Cloudflare Workers, static assets mode. Two ways this can deploy and I need to remember which
-one's actually on:
-
-1. GitHub Actions (`.github/workflows/deploy.yml`) — builds then `wrangler deploy`. Needs
-   `CLOUDFLARE_API_TOKEN` set as a repo secret or it just won't run.
-2. Cloudflare's dashboard has its own git integration from back when this was a static site
-   with no build step. If that's still wired up and its build command isn't `npm run build` /
-   output `dist`, it'll deploy the wrong thing. Check the dashboard before assuming a push just
-   works — either fix its build settings to match or turn it off and just use the Action.
-
-`wrangler.jsonc` points `assets.directory` at `./dist` now, not the repo root like before.
-
-If the domain ever changes, update `og:url` in `index.html` and the live link above.
+The site deploys to Cloudflare Workers (static assets mode) via a GitHub Actions workflow that
+builds the project and pushes it with Wrangler. That requires a Cloudflare API token stored as
+a repo secret. Worth knowing: this project was originally connected directly to Cloudflare's own
+dashboard git integration too, back when it was a static site with no build step — if that's
+still active alongside the GitHub Action, it needs to be pointed at the right build command
+(`npm run build`, output directory `dist`) or turned off, otherwise it'll try to deploy the
+wrong thing.
