@@ -28,7 +28,11 @@ export function Nav() {
         scrolled ? 'border-border' : 'border-transparent'
       }`}
     >
-      <a href="#hero" className="font-mono text-xl font-bold text-primary">KP</a>
+      <a href="#hero" className="inline-flex items-center font-mono text-xl font-bold">
+        <span className="text-primary">&gt;_</span>
+        <span className="text-brand-heading">kp</span>
+        <span className="animate-cursor-blink ml-1 h-[1em] w-[0.5em] bg-primary" aria-hidden="true" />
+      </a>
 
       <button
         type="button"
