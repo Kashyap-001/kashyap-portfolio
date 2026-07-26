@@ -14,7 +14,11 @@ const words = HONESTY_TEXT.split(/\s+/)
 
 function HonestyParagraph() {
   const ref = useRef<HTMLParagraphElement>(null)
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.8', 'end 0.3'] })
+  // Track the paragraph's top edge for both bounds (not top→bottom) so
+  // completion is independent of the paragraph's rendered height — using
+  // 'end' here made tall/wrapped paragraphs finish highlighting only after
+  // their top had already scrolled above the viewport.
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.8', 'start 0.2'] })
   const activeCountValue = useTransform(scrollYProgress, (p) => Math.floor(p * words.length))
   const [activeCount, setActiveCount] = useState(0)
   useMotionValueEvent(activeCountValue, 'change', (v) => setActiveCount(v))
